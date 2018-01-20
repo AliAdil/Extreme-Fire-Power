@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extreme Fire-Power", "Assem
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extreme Fire-Power", "Assembly-CSharp-Editor-firstpass.csproj", "{782BD64A-D234-06B1-C874-EB736A071AD0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extreme Fire-Power", "Assembly-CSharp-Editor.csproj", "{6424C0DE-764F-FAB2-CC5B-D4D6B7AEB957}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{782BD64A-D234-06B1-C874-EB736A071AD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{782BD64A-D234-06B1-C874-EB736A071AD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{782BD64A-D234-06B1-C874-EB736A071AD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6424C0DE-764F-FAB2-CC5B-D4D6B7AEB957}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6424C0DE-764F-FAB2-CC5B-D4D6B7AEB957}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6424C0DE-764F-FAB2-CC5B-D4D6B7AEB957}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6424C0DE-764F-FAB2-CC5B-D4D6B7AEB957}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
