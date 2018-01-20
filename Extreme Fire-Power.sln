@@ -1,15 +1,13 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{D0594672-C2CB-6038-F4EE-98ECDA277516}"
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extreme Fire-Power", "Assembly-CSharp.csproj", "{D0594672-C2CB-6038-F4EE-98ECDA277516}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "Assembly-CSharp-firstpass.csproj", "{E9FC91E7-804F-59AE-123B-CFB8713BC40E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extreme Fire-Power", "Assembly-CSharp-firstpass.csproj", "{E9FC91E7-804F-59AE-123B-CFB8713BC40E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor-firstpass", "Assembly-CSharp-Editor-firstpass.csproj", "{782BD64A-D234-06B1-C874-EB736A071AD0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extreme Fire-Power", "Assembly-CSharp-Editor-firstpass.csproj", "{782BD64A-D234-06B1-C874-EB736A071AD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{6424C0DE-764F-FAB2-CC5B-D4D6B7AEB957}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extreme Fire-Power", "Assembly-CSharp-Editor.csproj", "{6424C0DE-764F-FAB2-CC5B-D4D6B7AEB957}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
