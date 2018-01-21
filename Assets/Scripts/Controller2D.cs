@@ -23,7 +23,28 @@ public class Controller2D : MonoBehaviour {
        
     }
 
-    
+    void HorizontalCollsions(ref Vector3 velocity)
+    {
+        float directionX = Mathf.Sign(velocity.x);
+        float rayLenght = Mathf.Abs(velocity.x) + skinWith;
+
+
+        for (int i = 0; i < horizontalRayCount; i++)
+        {
+            Vector2 rayOrigin = (directionX == -1) ? raycastOrigins.bottomLeft : raycastOrigins.bottomRight;
+            rayOrigin += Vector2.up * (horizontalRaySpacing * i);
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLenght, collsionMask);
+
+            Debug.DrawRay(rayOrigin, Vector2.right * directionX * rayLenght, Color.red);
+            // Debug.DrawRay(raycastOrigins.bottomLeft + Vector2.right * verticalRaySpacing * i, Vector2.up * -2, Color.red);
+            if (hit)
+            {
+                velocity.x = (hit.distance - skinWith) * directionX;
+                rayLenght = hit.distance;
+
+            }
+        }
+    }
 
     void VerticalCollsions(ref Vector3 velocity)
     {
@@ -37,7 +58,7 @@ public class Controller2D : MonoBehaviour {
             rayOrigin += Vector2.right * (verticalRaySpacing * i + velocity.x);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLenght, collsionMask);
 
-            Debug.DrawRay(raycastOrigins.bottomLeft + Vector2.right * verticalRaySpacing * i, Vector2.up * -2, Color.red);
+            Debug.DrawRay(rayOrigin, Vector2.up * directionY * rayLenght, Color.blue);
             if (hit)
             {
                 velocity.y = (hit.distance - skinWith) * directionY;
@@ -49,7 +70,12 @@ public class Controller2D : MonoBehaviour {
     public void Move(Vector3 velocity)
     {
         UpdateRaycastOrigins();
+        if (velocity.x != 0) { 
+        HorizontalCollsions(ref velocity);
+        }
+        if (velocity.y != 0) { 
         VerticalCollsions(ref velocity);
+        }
         transform.Translate(velocity);
     }
     void UpdateRaycastOrigins()
