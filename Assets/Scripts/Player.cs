@@ -4,13 +4,19 @@ using UnityEngine;
 
 [RequireComponent (typeof (Controller2D))]
 public class Player : MonoBehaviour {
-
+    float gravity = -20;
+    Vector2 velocity;
     Controller2D controller;
 
 	// Use this for initialization
 	void Start () {
 		controller = GetComponent<Controller2D>();
 	}
-	
+
+    void Update()
+    {
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
+    }
 
 }
