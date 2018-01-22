@@ -18,16 +18,16 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-
+        if (controller.collisions.above || controller.collisions.below)
+        {
+            velocity.y = 0;
+        }
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
          
         velocity.x = input.x * moveSpeed;
-
-
-        
-
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+      
         if (input.x > 0 && !m_FacingRight)
         {
             Flip();
