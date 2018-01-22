@@ -5,8 +5,9 @@ using System.Collections;
 public class Player : MonoBehaviour
 {
     private bool m_FacingRight = true;
-    float moveSpeed = 6;
-    float gravity = -20;
+    float moveSpeed = 6.0f;
+    float gravity = -20.0f;
+  public   float jumpVelocity = 8.0f;
     Vector3 velocity;
 
     Controller2D controller;
@@ -23,11 +24,15 @@ public class Player : MonoBehaviour
             velocity.y = 0;
         }
         Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-         
+        if (Input.GetKeyDown(KeyCode.Space) && controller.collisions.below)
+        {
+            velocity.y = jumpVelocity;
+        }
         velocity.x = input.x * moveSpeed;
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-      
+
+        
         if (input.x > 0 && !m_FacingRight)
         {
             Flip();
