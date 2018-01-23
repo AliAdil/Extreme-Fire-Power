@@ -136,7 +136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &437618510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,6 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a19d260f991542f4c81a2f3223d3637b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpVelocity: 8
 --- !u!33 &437618514
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -294,22 +295,22 @@ Prefab:
     - target: {fileID: 61954990638872750, guid: 277afb83b31e80d4686fb19e5ee4086e,
         type: 2}
       propertyPath: m_Offset.y
-      value: -0.10549593
+      value: -0.040126085
       objectReference: {fileID: 0}
     - target: {fileID: 61954990638872750, guid: 277afb83b31e80d4686fb19e5ee4086e,
         type: 2}
       propertyPath: m_Size.y
-      value: 3.0590734
+      value: 2.9283338
       objectReference: {fileID: 0}
     - target: {fileID: 61954990638872750, guid: 277afb83b31e80d4686fb19e5ee4086e,
         type: 2}
       propertyPath: m_Offset.x
-      value: -0.17876387
+      value: 0.016411543
       objectReference: {fileID: 0}
     - target: {fileID: 61954990638872750, guid: 277afb83b31e80d4686fb19e5ee4086e,
         type: 2}
       propertyPath: m_Size.x
-      value: 1.9774427
+      value: 1.6216073
       objectReference: {fileID: 0}
     - target: {fileID: 114979511670161682, guid: 277afb83b31e80d4686fb19e5ee4086e,
         type: 2}
@@ -320,6 +321,11 @@ Prefab:
         type: 2}
       propertyPath: verticalRayCount
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114786401751732386, guid: 277afb83b31e80d4686fb19e5ee4086e,
+        type: 2}
+      propertyPath: jumpVelocity
+      value: 22.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 277afb83b31e80d4686fb19e5ee4086e, type: 2}
