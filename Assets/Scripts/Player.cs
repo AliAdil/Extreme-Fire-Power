@@ -4,19 +4,22 @@ using System.Collections;
 [RequireComponent(typeof(Controller2D))]
 public class Player : MonoBehaviour
 {
-        float jumpHeight = 4.0f;
-        float timeToJumpApex= 0.4f;
+        public float jumpHeight = 4.0f;
+        public float timeToJumpApex= 0.4f;
         private bool m_FacingRight = true;
         float moveSpeed = 6.0f;
         float gravity;
-    public   float jumpVelocity;
-        Vector3 velocity;
+        public float jumpVelocity;
 
-    Controller2D controller;
+        Vector3 velocity;
+        Controller2D controller;
 
     void Start()
     {
         controller = GetComponent<Controller2D>();
+        gravity = -(2 * jumpHeight) / Mathf.Pow(timeToJumpApex, 2);
+        jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
+        print("Gravity " + gravity + " Jump Velocity " + jumpVelocity);
     }
 
     void Update()
