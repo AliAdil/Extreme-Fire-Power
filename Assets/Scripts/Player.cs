@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
         float accelerationTimeAirborne= .2f;
         float accelerationTImeGrounded= .1f;
         private bool m_FacingRight = true;
-        float moveSpeed = 6.0f;
+        public float moveSpeed = 6.0f;
         float gravity;
         float jumpVelocity;
         float velocityXSmoothing;
