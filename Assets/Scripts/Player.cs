@@ -6,10 +6,13 @@ public class Player : MonoBehaviour
 {
         public float jumpHeight = 4.0f;
         public float timeToJumpApex= 0.4f;
+        float accelerationTimeAirborne= .2f;
+        float accelerationTImeGrounded= .1f;
         private bool m_FacingRight = true;
         float moveSpeed = 6.0f;
         float gravity;
         float jumpVelocity;
+        float velocityXSmoothing;
 
         Vector3 velocity;
         Controller2D controller;
@@ -33,7 +36,8 @@ public class Player : MonoBehaviour
         {
             velocity.y = jumpVelocity;
         }
-        velocity.x = input.x * moveSpeed;
+        float targetVelocityX = input.x * moveSpeed;
+        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below)?accelerationTImeGrounded:accelerationTimeAirborne);
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
