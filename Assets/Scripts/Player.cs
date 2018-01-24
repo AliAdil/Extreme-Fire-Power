@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
         private bool m_FacingRight = true;
         float moveSpeed = 6.0f;
         float gravity;
-        public float jumpVelocity;
+        float jumpVelocity;
 
         Vector3 velocity;
         Controller2D controller;
