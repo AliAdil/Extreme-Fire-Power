@@ -79,6 +79,11 @@ public class Controller2D : MonoBehaviour
                 {
                     velocity.x = (hit.distance - skinWidth) * directionX;
                     rayLength = hit.distance;
+                    //sloped detection and remove player virabtion when collided to slops form  sides..
+                    if (collisions.climbingSlope)
+                    {
+                        velocity.y = Mathf.Tan(collisions.slopeAngle*Mathf.Deg2Rad)*Mathf.Abs(velocity.x);
+                    }
 
                     collisions.left = directionX == -1;
                     collisions.right = directionX == 1;
@@ -104,7 +109,12 @@ public class Controller2D : MonoBehaviour
             {
                 velocity.y = (hit.distance - skinWidth) * directionY;
                 rayLength = hit.distance;
+                //sloped detection and remove player virabtion when collided to slops form  top etc.
 
+                if (collisions.climbingSlope)
+                {
+                    velocity.x = velocity.y / Mathf.Tan(collisions.slopeAngle * Mathf.Deg2Rad) * Mathf.Sign(velocity.x);
+                }
                 collisions.below = directionY == -1;
                 collisions.above = directionY == 1;
             }
