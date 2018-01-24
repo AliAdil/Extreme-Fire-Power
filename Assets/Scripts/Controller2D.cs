@@ -11,6 +11,8 @@ public class Controller2D : MonoBehaviour
     public int horizontalRayCount = 4;
     public int verticalRayCount = 4;
 
+    float macClimbAngle = 80f;
+
     float horizontalRaySpacing;
     float verticalRaySpacing;
 
@@ -59,8 +61,9 @@ public class Controller2D : MonoBehaviour
             {
 
                 float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
-                if (i == 0) { 
-                print(slopeAngle);
+                if (i == 0 && slopeAngle <= macClimbAngle) { 
+                //print(slopeAngle);
+                    ClimbSlop(ref velocity, slopeAngle);
                 }
                 velocity.x = (hit.distance - skinWidth) * directionX;
                 rayLength = hit.distance;
@@ -93,6 +96,12 @@ public class Controller2D : MonoBehaviour
                 collisions.above = directionY == 1;
             }
         }
+    }
+
+    void ClimbSlope(ref Vector3 velocity, float slopeAngle)
+    {
+        float moveDistance = Mathf
+
     }
 
     void UpdateRaycastOrigins()
