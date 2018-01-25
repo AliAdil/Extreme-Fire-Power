@@ -33,6 +33,7 @@ public class Controller2D : MonoBehaviour
     {
         UpdateRaycastOrigins();
         collisions.Reset();
+        collisions.velocityOld = velocity;
         // descending slope
         if (velocity.y < 0)
         {
@@ -72,6 +73,11 @@ public class Controller2D : MonoBehaviour
 
                 if (i == 0 && slopeAngle <= maxClimbAngle)
                 {
+                    if (collisions.descendingSlope)
+                    {
+                        collisions.descendingSlope = false;
+                        velocity = collisions.velocityOld;
+                    }
                     //print(slopeAngle);
                     float distanceToSlopeStart = 0;
                     if (slopeAngle != collisions.slopeAngleOld)
@@ -231,6 +237,7 @@ public class Controller2D : MonoBehaviour
         public bool climbingSlope;
         public bool descendingSlope;
         public float slopeAngle, slopeAngleOld;
+        public Vector3 velocityOld;
         public void Reset()
         {
             above = below = false;
