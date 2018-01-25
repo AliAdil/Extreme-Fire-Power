@@ -11,7 +11,8 @@ public class Controller2D : MonoBehaviour
     public int horizontalRayCount = 4;
     public int verticalRayCount = 4;
 
-    float macClimbAngle = 80f;
+    float maxClimbAngle = 80f;
+    float maxDescendAngle = 75f;
 
     float horizontalRaySpacing;
     float verticalRaySpacing;
@@ -32,6 +33,13 @@ public class Controller2D : MonoBehaviour
     {
         UpdateRaycastOrigins();
         collisions.Reset();
+        // descending slope
+        if (velocity.y < 0)
+        {
+            DescendSlope(ref velocity);
+        }
+
+        // ascending slope
         if (velocity.x != 0)
         {
             HorizontalCollisions(ref velocity);
@@ -62,7 +70,7 @@ public class Controller2D : MonoBehaviour
 
                 float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
 
-                if (i == 0 && slopeAngle <= macClimbAngle)
+                if (i == 0 && slopeAngle <= maxClimbAngle)
                 {
                     //print(slopeAngle);
                     float distanceToSlopeStart = 0;
@@ -75,7 +83,7 @@ public class Controller2D : MonoBehaviour
                     velocity.x += distanceToSlopeStart * directionX;
                 }
                 // check if not climbing the slope then we want to check the rest of rays collisions
-                if (!collisions.climbingSlope || slopeAngle > macClimbAngle)
+                if (!collisions.climbingSlope || slopeAngle > maxClimbAngle)
                 {
                     velocity.x = (hit.distance - skinWidth) * directionX;
                     rayLength = hit.distance;
@@ -119,6 +127,7 @@ public class Controller2D : MonoBehaviour
                 collisions.above = directionY == 1;
             }
         }
+        // to slope joint togather and making V shape to overcome that problem
         if (collisions.climbingSlope)
         {
             float directionX = Mathf.Sign(velocity.x);
@@ -139,7 +148,7 @@ public class Controller2D : MonoBehaviour
         }
 
     }
-
+    // checking climbe slope
     void ClimbSlope(ref Vector3 velocity, float slopeAngle)
     {
         float moveDistance = Mathf.Abs(velocity.x);
@@ -154,6 +163,35 @@ public class Controller2D : MonoBehaviour
         collisions.slopeAngle = slopeAngle;
         }
 
+    }
+
+    void DescendSlope(ref Vector3 velocity)
+    {
+        float directionX = Mathf.Sign(velocity.x);
+        Vector2 rayOrigin = (directionX == -1) ? raycastOrigins.bottomRight : raycastOrigins.bottomRight;
+        RaycastHit2D hit = Physics2D.Raycast(rayOrigin, -Vector2.up, Mathf.Infinity, collisionMask);
+        if (hit)
+        {   //hit.normal is direction that is perpendicular to slope
+            float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
+            if (slopeAngle != 0 && slopeAngle <= maxDescendAngle)
+            {
+                if (Mathf.Sign(hit.normal.x) == directionX)
+                {
+                    if (hit.distance - skinWidth <= Mathf.Tan(slopeAngle * Mathf.Deg2Rad) * Mathf.Abs(velocity.x))
+                    {
+                        float moveDistance = Mathf.Abs(velocity.x);
+                        float descendVelocityY = Mathf.Sin(slopeAngle * Mathf.Deg2Rad) * moveDistance;
+                        velocity.x = Mathf.Cos(slopeAngle * Mathf.Deg2Rad) * moveDistance * Mathf.Sign(velocity.x);
+                        velocity.y -= descendVelocityY;
+
+                        collisions.slopeAngle = slopeAngle;
+                        collisions.descendingSlope = true;
+                        collisions.below = true;
+
+                    }
+                }
+            }
+        }
     }
 
     void UpdateRaycastOrigins()
@@ -191,12 +229,14 @@ public class Controller2D : MonoBehaviour
         public bool left, right;
 
         public bool climbingSlope;
+        public bool descendingSlope;
         public float slopeAngle, slopeAngleOld;
         public void Reset()
         {
             above = below = false;
             left = right = false;
             climbingSlope = false;
+            descendingSlope = false;
             slopeAngleOld = slopeAngle;
             slopeAngle = 0;
         }
