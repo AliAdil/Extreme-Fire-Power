@@ -19,12 +19,19 @@ public class PlatformController : RaycastController
         UpdateRaycastOrigins();
         Vector3 velocity = move * Time.deltaTime;
 
-        MovePassengers(velocity);
+        CalculatePassengerMovement(velocity);
+        MovePassengers(true);
         transform.Translate(velocity);
+        MovePassengers(false);
+    }
+
+    void MovePassengers(bool beforeMovePlatform)
+    {
+
     }
     // Any controller 2D that is affected by platform WRO standing on it or below ir being side of it of pushed horizontally or vertically
     // Anything that is going to move by platform We are going to call them passenger
-    void MovePassengers(Vector3 velocity)
+    void CalculatePassengerMovement(Vector3 velocity)
     { 
         // all of the passengers that moved this frame
         HashSet<Transform> movedPasssengers = new HashSet<Transform>();
@@ -111,5 +118,18 @@ public class PlatformController : RaycastController
                 }
             }
         }
+    }
+    struct PassengerMovement
+    {
+        public Transform transform;
+        public Vector3 velocity;
+        public bool standingOnPlatform;
+        public bool moveBEforePlatform;
+
+        public PassengerMovement(Transform _tranform, Vector3 _velocity, bool _standingOnPlatform, bool _moveBeforePlatforms)
+        {
+
+        }
+
     }
 }
