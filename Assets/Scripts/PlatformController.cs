@@ -9,6 +9,8 @@ public class PlatformController : RaycastController
     public Vector3 move;
 
     List<PassengerMovement> passengerMovement;
+
+    Dictionary<Transform, Controller2D> passengerDictionary = new Dictionary<Transform, Controller2D>(); 
     // Use this for initialization
     public override void Start()
     {
@@ -31,9 +33,18 @@ public class PlatformController : RaycastController
     {
         foreach (PassengerMovement passenger in passengerMovement)
         {
+            // check if the passenger isnt already contained in our dictonary
+            if (!passengerDictionary.ContainsKey(passenger.transform))
+            {
+                // to only get one getcomponent called  per passenger 
+                passengerDictionary.Add(passenger.transform, passenger.transform.GetComponent<Controller2D>());
+            }
+
+
             if (passenger.moveBeforePlatform == beforeMovePlatform)
             {
-                passenger.transform.GetComponent<Controller2D>().Move(passenger.velocity);
+                //passenger.transform.GetComponent<Controller2D>().Move(passenger.velocity , passenger.standingOnPlatform);
+                passengerDictionary[passenger.transform].Move(passenger.velocity, passenger.standingOnPlatform);
             }
         }
     }
@@ -95,7 +106,8 @@ public class PlatformController : RaycastController
                         //moved passenger is added in Hash Tranform list each passanger will be moved one time per frame
                         movedPasssengers.Add(hit.transform);
                         float pushX = velocity.x - (hit.distance - skinWidth) * directionX;
-                        float pushY = 0;
+                        //pushed by side 
+                        float pushY = -skinWidth;
 
                         //Add new passanger movement to passengers list 
                         passengerMovement.Add(new PassengerMovement(hit.transform, new Vector3(pushX, pushY), false, true));
