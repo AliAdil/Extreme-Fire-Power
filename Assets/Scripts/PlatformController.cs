@@ -10,6 +10,7 @@ public class PlatformController : RaycastController
 
     // bunch of postions that is relative to waypoint
     public Vector3[] localWaypoints;
+    public Vector3[] globalWaypoints;
 
     List<PassengerMovement> passengerMovement;
 
@@ -18,6 +19,13 @@ public class PlatformController : RaycastController
     public override void Start()
     {
         base.Start();
+
+        // global waypoints 
+        globalWaypoints = new Vector3[localWaypoints.Length];
+        for (int i = 0; i < localWaypoints.Length; i++)
+        {
+            globalWaypoints[i] = localWaypoints[i] + transform.position;
+        }
     }
 
     // Update is called once per frame
@@ -177,7 +185,7 @@ public class PlatformController : RaycastController
             for (int i = 0; i < localWaypoints.Length; i++)
             {
                 // need to convert local postion into global postion in order to draw Gizmo
-                Vector3 globalWaypointPos = localWaypoints[i] + transform.position;
+                Vector3 globalWaypointPos = (Application.isPlaying)?globalWaypoints[i] :  localWaypoints[i] + transform.position;
                 // draw gizmo
                 Gizmos.DrawLine(globalWaypointPos - Vector3.up * size, globalWaypointPos + Vector3.up * size);
                 Gizmos.DrawLine(globalWaypointPos - Vector3.left * size, globalWaypointPos + Vector3.left * size);
