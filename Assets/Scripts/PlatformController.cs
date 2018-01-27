@@ -8,6 +8,9 @@ public class PlatformController : RaycastController
     public LayerMask passengerMask;
     public Vector3 move;
 
+    // bunch of postions that is relative to waypoint
+    public Vector3[] localWaypoints;
+
     List<PassengerMovement> passengerMovement;
 
     Dictionary<Transform, Controller2D> passengerDictionary = new Dictionary<Transform, Controller2D>(); 
@@ -161,6 +164,25 @@ public class PlatformController : RaycastController
             moveBeforePlatform = _moveBeforePlatforms;
             
             
+        }
+
+    }
+
+    void OnDrawGizmos()
+    {
+        if (localWaypoints != null)
+        {
+            Gizmos.color = Color.red;
+            float size = .3f;
+            for (int i = 0; i < localWaypoints.Length; i++)
+            {
+                // need to convert local postion into global postion in order to draw Gizmo
+                Vector3 globalWaypointPos = localWaypoints[i] + transform.position;
+                // draw gizmo
+                Gizmos.DrawLine(globalWaypointPos - Vector3.up * size, globalWaypointPos + Vector3.up * size);
+                Gizmos.DrawLine(globalWaypointPos - Vector3.left * size, globalWaypointPos + Vector3.left * size);
+
+            }
         }
 
     }
