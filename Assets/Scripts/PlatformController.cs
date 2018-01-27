@@ -41,7 +41,7 @@ public class PlatformController : RaycastController
         UpdateRaycastOrigins();
 
       //  Vector3 velocity = move * Time.deltaTime;
-        Vector3 velocity = CalculatePassengerMovement();
+        Vector3 velocity = CalculatePlatformMovement();
 
         CalculatePassengerMovement(velocity);
         MovePassengers(true);
