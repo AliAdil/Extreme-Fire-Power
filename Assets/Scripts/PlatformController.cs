@@ -6,11 +6,18 @@ public class PlatformController : RaycastController
 {
 
     public LayerMask passengerMask;
-    public Vector3 move;
+    //public Vector3 move;
 
     // bunch of postions that is relative to waypoint
     public Vector3[] localWaypoints;
     public Vector3[] globalWaypoints;
+
+    // for the speed of platform 
+    public float speed;
+    // index of gobal way point we are moving from
+    int fromWaypointIndex;
+    // percentage between 0 and 1
+    float percentBetweenWaypoints;
 
     List<PassengerMovement> passengerMovement;
 
@@ -32,12 +39,35 @@ public class PlatformController : RaycastController
     void Update()
     {
         UpdateRaycastOrigins();
-        Vector3 velocity = move * Time.deltaTime;
+
+      //  Vector3 velocity = move * Time.deltaTime;
+        Vector3 velocity = CalculatePassengerMovement();
 
         CalculatePassengerMovement(velocity);
         MovePassengers(true);
         transform.Translate(velocity);
         MovePassengers(false);
+    }
+    // using on the place to move method 
+    Vector3 CalculatePlatformMovement()
+    {
+        int toWaypointIndex = fromWaypointIndex + 1;
+        float distanceBetweenWaypoints = Vector3.Distance(globalWaypoints[fromWaypointIndex], globalWaypoints[toWaypointIndex]);
+        percentBetweenWaypoints += Time.deltaTime * speed / distanceBetweenWaypoints;
+
+        Vector3 newPos = Vector3.Lerp(globalWaypoints[fromWaypointIndex], globalWaypoints[toWaypointIndex], percentBetweenWaypoints);
+
+        if (percentBetweenWaypoints >= 1)
+        {
+            percentBetweenWaypoints = 0;
+            fromWaypointIndex++;
+            if (fromWaypointIndex >= globalWaypoints.Length - 1)
+            {
+                fromWaypointIndex = 0;
+                System.Array.Reverse(globalWaypoints);
+            }
+        }
+        return newPos - transform.position;
     }
 
     void MovePassengers(bool beforeMovePlatform)
