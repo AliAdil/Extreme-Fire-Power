@@ -19,6 +19,8 @@ public class PlatformController : RaycastController
 
     public float waitTime;
 
+    public float easeAmount;
+
     // index of gobal way point we are moving from
     int fromWaypointIndex;
     // percentage between 0 and 1
@@ -52,6 +54,14 @@ public class PlatformController : RaycastController
         MovePassengers(true);
         transform.Translate(velocity);
         MovePassengers(false);
+    }
+
+
+
+    float Ease(float x)
+    {
+        float a = easeAmount +1;
+        return Mathf.Pow(x, a) / (Mathf.Pow(x, a) + Mathf.Pow(1 - x, a));
     }
     // using on the place to move method 
     Vector3 CalculatePlatformMovement()
