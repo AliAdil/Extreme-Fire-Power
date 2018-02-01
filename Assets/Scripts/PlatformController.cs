@@ -16,11 +16,14 @@ public class PlatformController : RaycastController
     public float speed;
 
     public bool cyclic;
+
+    public float waitTime;
+
     // index of gobal way point we are moving from
     int fromWaypointIndex;
     // percentage between 0 and 1
     float percentBetweenWaypoints;
-
+    float nextMoveTime;
     List<PassengerMovement> passengerMovement;
 
     Dictionary<Transform, Controller2D> passengerDictionary = new Dictionary<Transform, Controller2D>(); 
@@ -53,6 +56,12 @@ public class PlatformController : RaycastController
     // using on the place to move method 
     Vector3 CalculatePlatformMovement()
     {
+
+
+        if (Time.time < nextMoveTime)
+        {
+            return Vector3.zero;
+        }
         //it makes it reset to zero each time it reaches global waypoint throught length
         fromWaypointIndex %= globalWaypoints.Length;
 
@@ -76,7 +85,8 @@ public class PlatformController : RaycastController
                     System.Array.Reverse(globalWaypoints);
                 }
             }
-
+            // current time and the amount of time we must wait 
+            nextMoveTime = Time.time + waitTime;
         }
         return newPos - transform.position;
     }
