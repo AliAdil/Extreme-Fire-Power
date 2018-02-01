@@ -14,6 +14,8 @@ public class PlatformController : RaycastController
 
     // for the speed of platform 
     public float speed;
+
+    public bool cyclic;
     // index of gobal way point we are moving from
     int fromWaypointIndex;
     // percentage between 0 and 1
@@ -51,7 +53,10 @@ public class PlatformController : RaycastController
     // using on the place to move method 
     Vector3 CalculatePlatformMovement()
     {
-        int toWaypointIndex = fromWaypointIndex + 1;
+        //it makes it reset to zero each time it reaches global waypoint throught length
+        fromWaypointIndex %= globalWaypoints.Length;
+
+        int toWaypointIndex = (fromWaypointIndex + 1) % globalWaypoints.Length;
         float distanceBetweenWaypoints = Vector3.Distance(globalWaypoints[fromWaypointIndex], globalWaypoints[toWaypointIndex]);
         percentBetweenWaypoints += Time.deltaTime * speed / distanceBetweenWaypoints;
 
@@ -61,11 +66,17 @@ public class PlatformController : RaycastController
         {
             percentBetweenWaypoints = 0;
             fromWaypointIndex++;
-            if (fromWaypointIndex >= globalWaypoints.Length - 1)
+
+            // making cyclic movement 
+            if (!cyclic)
             {
-                fromWaypointIndex = 0;
-                System.Array.Reverse(globalWaypoints);
+                if (fromWaypointIndex >= globalWaypoints.Length - 1)
+                {
+                    fromWaypointIndex = 0;
+                    System.Array.Reverse(globalWaypoints);
+                }
             }
+
         }
         return newPos - transform.position;
     }
