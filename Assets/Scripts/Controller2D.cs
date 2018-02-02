@@ -29,10 +29,11 @@ public class Controller2D : RaycastController
         }
 
         // ascending slope
-        if (velocity.x != 0)
-        {
+       // comented this becouse of jump sliding function 
+        // if (velocity.x != 0)
+        //{
             HorizontalCollisions(ref velocity);
-        }
+        //}
         if (velocity.y != 0)
         {
             VerticalCollisions(ref velocity);
