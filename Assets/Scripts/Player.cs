@@ -42,6 +42,10 @@ public class Player : MonoBehaviour
         
         int wallDirX = (controller.collisions.left) ? -1 : 1;
 
+        float targetVelocityX = input.x * moveSpeed;
+        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTImeGrounded : accelerationTimeAirborne);
+       
+
         // wall sliding  variable 
         bool wallSliding = false;
         //checking for the case if wallsliding is true
@@ -54,8 +58,9 @@ public class Player : MonoBehaviour
                 //reseting velocity wallslide
                 velocity.y = -wallSlideSpeedMax;
             }
-            if (wallStickTime > 0)
+            if (timeToWallUnstick > 0)
             {
+                velocityXSmoothing = 0;
                 velocity.x = 0; 
                 if (input.x != wallDirX && input.x != 0)
                 {
@@ -65,6 +70,10 @@ public class Player : MonoBehaviour
                 {
                     timeToWallUnstick = wallStickTime;
                 }
+            }
+            else
+            {
+                timeToWallUnstick = wallStickTime;
             }
 
         }
@@ -107,8 +116,6 @@ public class Player : MonoBehaviour
                 velocity.y = jumpVelocity;
             }
         }
-        float targetVelocityX = input.x * moveSpeed;
-        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below)?accelerationTImeGrounded:accelerationTimeAirborne);
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
 
