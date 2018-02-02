@@ -66,6 +66,25 @@ public class Player : MonoBehaviour
             // wall sliding jump
             if (wallSliding)
             {
+                if (wallDirX == input.x)
+                {
+                    //Moving character facing wall ( -wallDirX mean moving away form wall) 
+                    velocity.x = -wallDirX * wallJumpCLimb.x;
+                    velocity.y = wallJumpCLimb.y; 
+                }
+                    // for jump off the wall 
+                else if (input.x == 0)
+                {
+                    velocity.x = - -wallDirX * wallJumpOff.x;
+                    velocity.y = wallJumpOff.y; 
+                }
+                    // wall leap jump 
+                else
+                {
+                    velocity.x = -wallDirX * wallLeap.x;
+                    velocity.y = wallLeap.y;
+
+                }
 
             }
             //regular jump
