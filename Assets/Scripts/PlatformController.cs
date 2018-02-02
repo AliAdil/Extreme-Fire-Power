@@ -74,7 +74,8 @@ public class PlatformController : RaycastController
             return Vector3.zero;
         }
         //it makes it reset to zero each time it reaches global waypoint throught length
-        fromWaypointIndex %= globalWaypoints.Length;
+         fromWaypointIndex %= globalWaypoints.Length;
+        Debug.Log("from waypoint index "+fromWaypointIndex);
 
         int toWaypointIndex = (fromWaypointIndex + 1) % globalWaypoints.Length;
         float distanceBetweenWaypoints = Vector3.Distance(globalWaypoints[fromWaypointIndex], globalWaypoints[toWaypointIndex]);
