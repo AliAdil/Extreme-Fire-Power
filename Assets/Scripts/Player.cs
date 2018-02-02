@@ -4,6 +4,11 @@ using System.Collections;
 [RequireComponent(typeof(Controller2D))]
 public class Player : MonoBehaviour
 {
+        // for three different type of wall jumps 
+        public Vector2 wallJumpCLimb;
+        public Vector2 wallJumpOff;
+        public Vector2 wallLeap;
+
         public float jumpHeight = 4.0f;
         public float timeToJumpApex= 0.4f;
         float accelerationTimeAirborne= .2f;
@@ -30,6 +35,11 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        //input vector 
+        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        
+        int wallDirX = (controller.collisions.left) ? -1 : 1;
+
         // wall sliding  variable 
         bool wallSliding = false;
         //checking for the case if wallsliding is true
@@ -49,10 +59,20 @@ public class Player : MonoBehaviour
         {
             velocity.y = 0;
         }
-        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        if (Input.GetKeyDown(KeyCode.Space) && controller.collisions.below)
+        
+        // Jump key input function 
+        if (Input.GetKeyDown(KeyCode.Space) /* No longer use of this checking if character is touching the ground ____________  && controller.collisions.below*/)
         {
-            velocity.y = jumpVelocity;
+            // wall sliding jump
+            if (wallSliding)
+            {
+
+            }
+            //regular jump
+            if (controller.collisions.below)
+            {
+                velocity.y = jumpVelocity;
+            }
         }
         float targetVelocityX = input.x * moveSpeed;
         velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below)?accelerationTImeGrounded:accelerationTimeAirborne);
