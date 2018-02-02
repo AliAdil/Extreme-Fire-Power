@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
         public float moveSpeed = 6.0f;
 
         public float wallSlideSpeedMax = 3;
+        public float wallStickTime = 0.25f;
+        public float timeToWallUnstick;
     
         float gravity;
         float jumpVelocity;
@@ -51,6 +53,18 @@ public class Player : MonoBehaviour
             {
                 //reseting velocity wallslide
                 velocity.y = -wallSlideSpeedMax;
+            }
+            if (wallStickTime > 0)
+            {
+                velocity.x = 0; 
+                if (input.x != wallDirX && input.x != 0)
+                {
+                    timeToWallUnstick -= Time.deltaTime;
+                }
+                else
+                {
+                    timeToWallUnstick = wallStickTime;
+                }
             }
 
         }
