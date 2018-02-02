@@ -10,6 +10,9 @@ public class Player : MonoBehaviour
         float accelerationTImeGrounded= .1f;
         private bool m_FacingRight = true;
         public float moveSpeed = 6.0f;
+
+        public float wallSlideSpeedMax = 3;
+    
         float gravity;
         float jumpVelocity;
         float velocityXSmoothing;
@@ -27,6 +30,21 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        // wall sliding  variable 
+        bool wallSliding = false;
+        //checking for the case if wallsliding is true
+        //in order to be true it have to colllide with walls to the left or to the right of our character
+        //a character needs to not be touching the ground and also needs to be moving downwords
+        if( (controller.collisions.left || controller.collisions.right) && !controller.collisions.below && velocity.y < 0 ){
+            wallSliding = true;
+            if (velocity.y < -wallSlideSpeedMax)
+            {
+                //reseting velocity wallslide
+                velocity.y = -wallSlideSpeedMax;
+            }
+
+        }
+
         if (controller.collisions.above || controller.collisions.below)
         {
             velocity.y = 0;
