@@ -156,8 +156,14 @@ public class Controller2D : RaycastController
                     {
                         continue;
                     }
+                    if (collisions.fallingThorughPlatform)
+                    {
+                        continue;
+                    }
                     if (playerInput.y == -1)
                     {
+                        collisions.fallingThorughPlatform = true;
+                        Invoke("ResetFallingThroughPlatform", 0.5f);
                         continue;
                     }
                 }
@@ -242,7 +248,10 @@ public class Controller2D : RaycastController
         }
     }
 
-
+    void ResetFallingThroughPlatform()
+    {
+        collisions.fallingThorughPlatform = false;
+    }
 
     public struct CollisionInfo
     {
@@ -254,7 +263,8 @@ public class Controller2D : RaycastController
         public float slopeAngle, slopeAngleOld;
         public Vector3 velocityOld;
         // 1 would mean character facing right -1 mean it is facing left  
-        public int faceDir; 
+        public int faceDir;
+        public bool fallingThorughPlatform;
 
         public void Reset()
         {

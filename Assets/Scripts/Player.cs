@@ -82,10 +82,7 @@ public class Player : MonoBehaviour
 
         }
 
-        if (controller.collisions.above || controller.collisions.below)
-        {
-            velocity.y = 0;
-        }
+ 
         
         // Jump key input function 
         if (Input.GetKeyDown(KeyCode.Space) /* No longer use of this checking if character is touching the ground ____________  && controller.collisions.below*/)
@@ -130,8 +127,14 @@ public class Player : MonoBehaviour
             }
         }
 
+ 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime, input);
+
+        if (controller.collisions.above || controller.collisions.below)
+        {
+            velocity.y = 0;
+        }
 
         
         if (input.x > 0 && !m_FacingRight)
