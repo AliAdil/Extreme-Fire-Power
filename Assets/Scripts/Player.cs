@@ -131,7 +131,7 @@ public class Player : MonoBehaviour
         }
 
         velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
+        controller.Move(velocity * Time.deltaTime, input);
 
         
         if (input.x > 0 && !m_FacingRight)
