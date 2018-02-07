@@ -24,6 +24,12 @@ public class CameraFollow2D : MonoBehaviour {
         focusArea.Update(target.collider.bounds);
     }
 
+    void OnDrawGizmos()
+    {
+        Gizmos.color = new Color(1, 0, 0, 0.5f);
+        Gizmos.DrawCube(focusArea.centre, focusAreaSize);
+    }
+
     struct FocusArea
     {
         public Vector2 centre;
