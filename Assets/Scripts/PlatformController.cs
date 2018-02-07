@@ -144,9 +144,9 @@ public class PlatformController : RaycastController
                 Vector2 rayOrigin = (directionY == -1) ? raycastOrigins.bottomLeft : raycastOrigins.topLeft;
                 rayOrigin += Vector2.right * (verticalRaySpacing * i);
                 RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up * directionY, rayLength, passengerMask);
-
+                //hit.distance != 0  checking if player is in the platform or not 
                 // if we found the passenger how far we want to move passenger
-                if (hit)
+                if (hit & hit.distance != 0)
                 {
                     // if the hit passengers doesnt contain hit transform only then we will move transform
                     if (!movedPasssengers.Contains(hit.transform)) { 
@@ -173,7 +173,9 @@ public class PlatformController : RaycastController
                 Vector2 rayOrigin = (directionX == -1) ? raycastOrigins.bottomLeft : raycastOrigins.bottomRight;
                 rayOrigin += Vector2.up * (horizontalRaySpacing * i);
                 RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.right * directionX, rayLength, passengerMask);
-                if (hit)
+                
+                //hit.distance != 0  checking if player is in the platform or not 
+                if (hit && hit.distance != 0 )
                 {
                     // if the hit passengers doesnt contain hit transform only then we will move transform
                     if (!movedPasssengers.Contains(hit.transform))
@@ -201,9 +203,9 @@ public class PlatformController : RaycastController
             {
                 Vector2 rayOrigin =  raycastOrigins.topLeft + Vector2.right * (verticalRaySpacing * i);
                 RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.up , rayLength, passengerMask);
-
+                //hit.distance != 0  checking if player is in the platform or not 
                 // if we found the passenger how far we want to move passenger
-                if (hit)
+                if (hit & hit.distance != 0)
                 {
                     // if the hit passengers doesnt contain hit transform only then we will move transform
                     if (!movedPasssengers.Contains(hit.transform))
