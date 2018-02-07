@@ -58,9 +58,9 @@ public class CameraFollow2D : MonoBehaviour {
                 }
             }
         }
-        targetLookAheadX = lookAheedDirX * lookAheadDstX;
+       // targetLookAheadX = lookAheedDirX * lookAheadDstX;
         currentLookAhedX = Mathf.SmoothDamp(currentLookAhedX, targetLookAheadX, ref smoothVelocityX, LookSmoothTimeX);
-
+        focusPosition.y = Mathf.SmoothDamp(transform.position.y, focusPosition.y, ref smoothVelocityY, verticalSmoothTime);
         focusPosition += Vector2.right * currentLookAhedX;
         transform.position = (Vector3)focusPosition + Vector3.forward * -10;
     }
