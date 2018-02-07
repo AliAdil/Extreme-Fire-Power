@@ -553,7 +553,8 @@ MonoBehaviour:
   wallJumpCLimb: {x: 7.5, y: 16}
   wallJumpOff: {x: 8.5, y: 7}
   wallLeap: {x: 18, y: 17}
-  jumpHeight: 3.5
+  maxJumpHeight: 15
+  minJumpHeight: 1
   timeToJumpApex: 0.4
   moveSpeed: 6
   wallSlideSpeedMax: 3
@@ -2607,7 +2608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc9d2632ca353cd4e82316b13d566126, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1969404289}
+  target: {fileID: 437618515}
   damping: 0
   lookAheadFactor: 0
   lookAheadReturnSpeed: 0
@@ -2865,7 +2866,8 @@ MonoBehaviour:
   wallJumpCLimb: {x: 7.5, y: 16}
   wallJumpOff: {x: 8.5, y: 7}
   wallLeap: {x: 18, y: 17}
-  jumpHeight: 4
+  maxJumpHeight: 4
+  minJumpHeight: 1
   timeToJumpApex: 0.4
   moveSpeed: 6
   wallSlideSpeedMax: 3
