@@ -140,7 +140,7 @@ public class Controller2D : RaycastController
                 if (hit.collider.tag == "Through")
                 {
                     // one mean we are moving up 
-                    if (directionY == 1)
+                    if (directionY == 1 || hit.distance == 0 )
                     {
                         continue;
                     }
