@@ -9,6 +9,7 @@ public class Controller2D : RaycastController
     float maxDescendAngle = 75f;
     // Public Refrence 
     public CollisionInfo collisions;
+    Vector2 playerInput;
 
     //overrides over start method in raycastcontroller
    public override void Start()
@@ -18,11 +19,22 @@ public class Controller2D : RaycastController
         collisions.faceDir = 1;
 
     }
-    public void Move(Vector3 velocity, bool standingOnPlatform = false)
+    // move overload method 
+   public void Move(Vector3 velocity, bool standingOnPlatform)
+   {
+       Move (velocity, Vector2.zero, standingOnPlatform);
+   }
+
+
+
+    // this method is called when platform is moving and taking input to so we overload it in upper method 
+    public void Move(Vector3 velocity, Vector2 input , bool standingOnPlatform = false)
     {
         UpdateRaycastOrigins();
         collisions.Reset();
         collisions.velocityOld = velocity;
+        // player input for pass thorugh platform
+        playerInput = input;
 
         // face direction
         if (velocity.x != 0)
@@ -141,6 +153,10 @@ public class Controller2D : RaycastController
                 {
                     // one mean we are moving up 
                     if (directionY == 1 || hit.distance == 0 )
+                    {
+                        continue;
+                    }
+                    if (playerInput.y == -1)
                     {
                         continue;
                     }
