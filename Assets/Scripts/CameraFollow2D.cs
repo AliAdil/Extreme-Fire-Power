@@ -6,17 +6,27 @@ public class CameraFollow2D : MonoBehaviour {
 
     // to store the target which camera will be following 
     public Controller2D target;
+    public float verticalOffset;
+    public float lookAheadDstX;
+    public float LookSmoothTimeX;
+    public float verticalSmoothTime;
     
     // size which camera will be following 
     public Vector2 focusAreaSize;
-
-    public float verticalOffset;
-
+    
     FocusArea focusArea;
+
+    float currentLookAhedX;
+    float targetLookAheadX;
+    float lookAheedDirX;
+    float smoothVelocityX;
+    float smoothVelocityY;
 
     void Start()
     {
         focusArea = new FocusArea(target.collider.bounds, focusAreaSize);
+        Debug.Log("Mathf value -10 "+Mathf.Sign(-10));
+        Debug.Log("Mathf value -10 "+Mathf.Sign(10));
     }
 
     // usually used for camera follow because it means that all the player movement has already been finished for the frame in its
@@ -27,6 +37,16 @@ public class CameraFollow2D : MonoBehaviour {
 
         Vector2 focusPosition = focusArea.centre + Vector2.up * verticalOffset;
 
+        transform.position = (Vector3)focusPosition + Vector3.forward * -10;
+
+        if (focusArea.velocity.x != 0)
+        {
+            lookAheedDirX = Mathf.Sign(focusArea.velocity.x);       
+        }
+        targetLookAheadX = lookAheedDirX * lookAheadDstX;
+        currentLookAhedX = Mathf.SmoothDamp(currentLookAhedX, targetLookAheadX, ref smoothVelocityX, LookSmoothTimeX);
+
+        focusPosition += Vector2.right * currentLookAhedX;
         transform.position = (Vector3)focusPosition + Vector3.forward * -10;
     }
 
