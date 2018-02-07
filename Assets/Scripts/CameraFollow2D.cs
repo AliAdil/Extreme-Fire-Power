@@ -22,6 +22,8 @@ public class CameraFollow2D : MonoBehaviour {
     float smoothVelocityX;
     float smoothVelocityY;
 
+    bool lookAheedStopped;
+
     void Start()
     {
         focusArea = new FocusArea(target.collider.bounds, focusAreaSize);
@@ -41,7 +43,20 @@ public class CameraFollow2D : MonoBehaviour {
 
         if (focusArea.velocity.x != 0)
         {
-            lookAheedDirX = Mathf.Sign(focusArea.velocity.x);       
+            lookAheedDirX = Mathf.Sign(focusArea.velocity.x);
+            if (Mathf.Sign(target.playerInput.x) == Mathf.Sign(focusArea.velocity.x) && target.playerInput.x != 0)
+            {
+                lookAheedStopped = false;
+                targetLookAheadX = lookAheedDirX * lookAheadDstX;
+            }
+            else
+            {
+                if (!lookAheedStopped)
+                {
+                    lookAheedStopped = true;
+                    targetLookAheadX = currentLookAhedX + (lookAheedDirX * lookAheadDstX - currentLookAhedX) / 4f;
+                }
+            }
         }
         targetLookAheadX = lookAheedDirX * lookAheadDstX;
         currentLookAhedX = Mathf.SmoothDamp(currentLookAhedX, targetLookAheadX, ref smoothVelocityX, LookSmoothTimeX);
