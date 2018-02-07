@@ -479,7 +479,7 @@ MonoBehaviour:
   verticalRayCount: 4
   horizontalRaySpacing: 0
   verticalRaySpacing: 0
-  collider: {fileID: 0}
+  collider: {fileID: 1658093320}
 --- !u!61 &437618511
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1434,7 +1434,7 @@ GameObject:
   - component: {fileID: 1171167701}
   m_Layer: 9
   m_Name: Quad (9)
-  m_TagString: Untagged
+  m_TagString: Through
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1512,8 +1512,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1171167700}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 52.4, y: 28.06, z: -0.090224504}
-  m_LocalScale: {x: 3.6873143, y: 1, z: 1}
+  m_LocalPosition: {x: 17.6, y: 18.5, z: -0.090224504}
+  m_LocalScale: {x: 5.625003, y: 1.0800002, z: 1.0800002}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 17
@@ -2107,7 +2107,7 @@ GameObject:
   - component: {fileID: 1571664716}
   m_Layer: 9
   m_Name: Quad (8)
-  m_TagString: Untagged
+  m_TagString: Through
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2185,7 +2185,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1571664711}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 65.2, y: 28.08, z: -0.090224504}
+  m_LocalPosition: {x: 42.8, y: 16.4, z: -0.090224504}
   m_LocalScale: {x: 3.6873143, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2214,18 +2214,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   localWaypoints:
+  - {x: 1, y: 5, z: 0}
   - {x: 1, y: -2, z: 0}
-  - {x: 2, y: 2, z: 0}
-  - {x: 3, y: -3, z: 0}
-  - {x: 4, y: 3, z: 0}
-  - {x: 5, y: -4, z: 0}
-  - {x: 6, y: 4, z: 0}
-  - {x: 7, y: -5, z: 0}
-  - {x: 8, y: 5, z: 0}
-  - {x: 9, y: -6, z: 0}
-  - {x: 10, y: 6, z: 0}
-  - {x: 11, y: -7, z: 0}
-  - {x: 12, y: 7, z: 0}
   globalWaypoints: []
   speed: 5
   cyclic: 1
@@ -2608,7 +2598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc9d2632ca353cd4e82316b13d566126, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 437618515}
+  target: {fileID: 1969404289}
   damping: 0
   lookAheadFactor: 0
   lookAheadReturnSpeed: 0
@@ -2864,10 +2854,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallJumpCLimb: {x: 7.5, y: 16}
-  wallJumpOff: {x: 8.5, y: 7}
+  wallJumpOff: {x: 15, y: 10}
   wallLeap: {x: 18, y: 17}
-  maxJumpHeight: 4
-  minJumpHeight: 1
+  maxJumpHeight: 12
+  minJumpHeight: 4
   timeToJumpApex: 0.4
   moveSpeed: 6
   wallSlideSpeedMax: 3
