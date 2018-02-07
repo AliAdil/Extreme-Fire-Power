@@ -139,6 +139,7 @@ public class Controller2D : RaycastController
                 // to pass through obsticals which contain through tag 
                 if (hit.collider.tag == "Through")
                 {
+                    // one mean we are moving up 
                     if (directionY == 1)
                     {
                         continue;
