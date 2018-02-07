@@ -10,7 +10,9 @@ public class PlatformController : RaycastController
 
     // bunch of postions that is relative to waypoint
     public Vector3[] localWaypoints;
-    public Vector3[] globalWaypoints;
+   public Vector3[] globalWaypoints;
+
+   
 
     // for the speed of platform 
     public float speed;
@@ -75,7 +77,7 @@ public class PlatformController : RaycastController
         }
         //it makes it reset to zero each time it reaches global waypoint throught length
          fromWaypointIndex %= globalWaypoints.Length;
-        Debug.Log("from waypoint index "+fromWaypointIndex);
+         Debug.Log("globalWaypoints.Length =" + fromWaypointIndex);
 
         int toWaypointIndex = (fromWaypointIndex + 1) % globalWaypoints.Length;
         float distanceBetweenWaypoints = Vector3.Distance(globalWaypoints[fromWaypointIndex], globalWaypoints[toWaypointIndex]);
