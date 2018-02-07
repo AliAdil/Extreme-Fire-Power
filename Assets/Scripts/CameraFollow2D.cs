@@ -10,6 +10,8 @@ public class CameraFollow2D : MonoBehaviour {
     // size which camera will be following 
     public Vector2 focusAreaSize;
 
+    public float verticalOffset;
+
     FocusArea focusArea;
 
     void Start()
@@ -22,6 +24,10 @@ public class CameraFollow2D : MonoBehaviour {
     void LateUpdate()
     {
         focusArea.Update(target.collider.bounds);
+
+        Vector2 focusPosition = focusArea.centre + Vector2.up * verticalOffset;
+
+        transform.position = (Vector3)focusPosition + Vector3.forward * -10;
     }
 
     void OnDrawGizmos()
