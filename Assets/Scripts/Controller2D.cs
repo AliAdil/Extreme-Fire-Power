@@ -136,6 +136,16 @@ public class Controller2D : RaycastController
 
             if (hit)
             {
+                // to pass through obsticals which contain through tag 
+                if (hit.collider.tag == "Through")
+                {
+                    if (directionY == 1)
+                    {
+                        continue;
+                    }
+                }
+
+                // constraint velocity to dont move thing through it 
                 velocity.y = (hit.distance - skinWidth) * directionY;
                 rayLength = hit.distance;
                 //sloped detection and remove player virabtion when collided to slops form  top etc.
