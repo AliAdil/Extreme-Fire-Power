@@ -806,6 +806,7 @@ GameObject:
   - component: {fileID: 437618512}
   - component: {fileID: 437618511}
   - component: {fileID: 437618513}
+  - component: {fileID: 437618516}
   - component: {fileID: 437618510}
   m_Layer: 8
   m_Name: Quad
@@ -868,7 +869,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -934,6 +935,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &437618516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 437618509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5ced48c32dce474395a15a70f154076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &493532470
 GameObject:
   m_ObjectHideFlags: 0
