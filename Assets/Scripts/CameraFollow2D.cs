@@ -19,8 +19,8 @@ public class CameraFollow2D : MonoBehaviour {
     float currentLookAhedX;
     float targetLookAheadX;
     float lookAheedDirX;
-    float smoothVelocityX;
-    float smoothVelocityY;
+    float smoothmoveAmountX;
+    float smoothmoveAmountY;
 
     bool lookAheedStopped;
 
@@ -41,10 +41,10 @@ public class CameraFollow2D : MonoBehaviour {
 
         transform.position = (Vector3)focusPosition + Vector3.forward * -10;
 
-        if (focusArea.velocity.x != 0)
+        if (focusArea.moveAmount.x != 0)
         {
-            lookAheedDirX = Mathf.Sign(focusArea.velocity.x);
-            if (Mathf.Sign(target.playerInput.x) == Mathf.Sign(focusArea.velocity.x) && target.playerInput.x != 0)
+            lookAheedDirX = Mathf.Sign(focusArea.moveAmount.x);
+            if (Mathf.Sign(target.playerInput.x) == Mathf.Sign(focusArea.moveAmount.x) && target.playerInput.x != 0)
             {
                 lookAheedStopped = false;
                 targetLookAheadX = lookAheedDirX * lookAheadDstX;
@@ -59,8 +59,8 @@ public class CameraFollow2D : MonoBehaviour {
             }
         }
        // targetLookAheadX = lookAheedDirX * lookAheadDstX;
-        currentLookAhedX = Mathf.SmoothDamp(currentLookAhedX, targetLookAheadX, ref smoothVelocityX, LookSmoothTimeX);
-        focusPosition.y = Mathf.SmoothDamp(transform.position.y, focusPosition.y, ref smoothVelocityY, verticalSmoothTime);
+        currentLookAhedX = Mathf.SmoothDamp(currentLookAhedX, targetLookAheadX, ref smoothmoveAmountX, LookSmoothTimeX);
+        focusPosition.y = Mathf.SmoothDamp(transform.position.y, focusPosition.y, ref smoothmoveAmountY, verticalSmoothTime);
         focusPosition += Vector2.right * currentLookAhedX;
         transform.position = (Vector3)focusPosition + Vector3.forward * -10;
     }
@@ -74,7 +74,7 @@ public class CameraFollow2D : MonoBehaviour {
     struct FocusArea
     {
         public Vector2 centre;
-        public Vector2 velocity;
+        public Vector2 moveAmount;
         float left, right;
         float top, bottom;
 
@@ -85,7 +85,7 @@ public class CameraFollow2D : MonoBehaviour {
             right = targetBounds.center.x + size.x / 2;
             bottom = targetBounds.min.y;
             top = targetBounds.min.y + size.y;
-            velocity = Vector2.zero;
+            moveAmount = Vector2.zero;
 
             // getting mid point add and then dividing them 
             centre = new Vector2((left + right) / 2, (top + bottom) / 2);
@@ -123,7 +123,7 @@ public class CameraFollow2D : MonoBehaviour {
             centre = new Vector2((left + right) / 2, (top + bottom) / 2);
             
             // value of how far focus area is moved in last frame 
-            velocity = new Vector2(shiftX, shiftY); 
+            moveAmount = new Vector2(shiftX, shiftY); 
         }
     }
 
