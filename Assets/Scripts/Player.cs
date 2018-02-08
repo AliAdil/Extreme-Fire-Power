@@ -43,6 +43,29 @@ public class Player : MonoBehaviour
        // print("Gravity " + gravity + " Jump Velocity " + maxJumpVelocity);
     }
 
+    void Update()
+    {
+        CalculateVelocity();
+        HandleWallSliding();
+
+        controller.Move(velocity * Time.deltaTime, directionalInput);
+
+        if (controller.collisions.above || controller.collisions.below)
+        {
+            velocity.y = 0;
+        }
+
+
+        if (directionalInput.x > 0 && !m_FacingRight)
+        {
+            Flip();
+        }
+        else if (directionalInput.x < 0 && m_FacingRight)
+        {
+            Flip();
+        }
+    }
+
     public void SetDirectionalInput(Vector2 input)
     {
         directionalInput = input;
@@ -89,23 +112,29 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Update()
+
+
+    public void Flip()
     {
-       
-        
-        
+        // Switch the way the player is labelled as facing.
+        m_FacingRight = !m_FacingRight;
+
+        // Multiply the player's x local scale by -1.
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
+    }
+
+    void HandleWallSliding()
+    {
         wallDirX = (controller.collisions.left) ? -1 : 1;
-
-        float targetVelocityX = directionalInput.x * moveSpeed;
-        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTImeGrounded : accelerationTimeAirborne);
-       
-
         // wall sliding  variable 
         wallSliding = false;
         //checking for the case if wallsliding is true
         //in order to be true it have to colllide with walls to the left or to the right of our character
         //a character needs to not be touching the ground and also needs to be moving downwords
-        if( (controller.collisions.left || controller.collisions.right) && !controller.collisions.below && velocity.y < 0 ){
+        if ((controller.collisions.left || controller.collisions.right) && !controller.collisions.below && velocity.y < 0)
+        {
             wallSliding = true;
             if (velocity.y < -wallSlideSpeedMax)
             {
@@ -115,7 +144,7 @@ public class Player : MonoBehaviour
             if (timeToWallUnstick > 0)
             {
                 velocityXSmoothing = 0;
-                velocity.x = 0; 
+                velocity.x = 0;
                 if (directionalInput.x != wallDirX && directionalInput.x != 0)
                 {
                     timeToWallUnstick -= Time.deltaTime;
@@ -131,41 +160,12 @@ public class Player : MonoBehaviour
             }
 
         }
-
- 
-        
-      
-
- 
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime, directionalInput);
-
-        if (controller.collisions.above || controller.collisions.below)
-        {
-            velocity.y = 0;
-        }
-
-        
-        if (directionalInput.x > 0 && !m_FacingRight)
-        {
-            Flip();
-        }
-        else if (directionalInput.x < 0 && m_FacingRight)
-        {
-            Flip();
-        }
-
-        
-
     }
-    private void Flip()
-    {
-        // Switch the way the player is labelled as facing.
-        m_FacingRight = !m_FacingRight;
 
-        // Multiply the player's x local scale by -1.
-        Vector3 theScale = transform.localScale;
-        theScale.x *= -1;
-        transform.localScale = theScale;
+    void CalculateVelocity()
+    {
+        float targetVelocityX = directionalInput.x * moveSpeed;
+        velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTImeGrounded : accelerationTimeAirborne);
+        velocity.y += gravity * Time.deltaTime;
     }
 }
