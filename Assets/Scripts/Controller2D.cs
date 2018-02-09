@@ -5,8 +5,8 @@ using System.Collections;
 public class Controller2D : RaycastController
 {
 
-    float maxClimbAngle = 80f;
-    float maxDescendAngle = 75f;
+    public float maxSlopeAngle = 80f;
+   
     // Public Refrence 
     public CollisionInfo collisions;
     [HideInInspector]
@@ -99,7 +99,7 @@ public class Controller2D : RaycastController
 
                 float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
 
-                if (i == 0 && slopeAngle <= maxClimbAngle)
+                if (i == 0 && slopeAngle <= maxSlopeAngle)
                 {
                     if (collisions.descendingSlope)
                     {
@@ -117,7 +117,7 @@ public class Controller2D : RaycastController
                     moveAmount.x += distanceToSlopeStart * directionX;
                 }
                 // check if not climbing the slope then we want to check the rest of rays collisions
-                if (!collisions.climbingSlope || slopeAngle > maxClimbAngle)
+                if (!collisions.climbingSlope || slopeAngle > maxSlopeAngle)
                 {
                     moveAmount.x = (hit.distance - skinWidth) * directionX;
                     rayLength = hit.distance;
@@ -228,7 +228,7 @@ public class Controller2D : RaycastController
         if (hit)
         {   //hit.normal is direction that is perpendicular to slope
             float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
-            if (slopeAngle != 0 && slopeAngle <= maxDescendAngle)
+            if (slopeAngle != 0 && slopeAngle <= maxSlopeAngle)
             {
                 if (Mathf.Sign(hit.normal.x) == directionX)
                 {

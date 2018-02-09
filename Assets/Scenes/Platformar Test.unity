@@ -3765,7 +3765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13b807f26531fc042923c2ddb659a3b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 437618510}
+  target: {fileID: 1969404292}
   verticalOffset: 1
   lookAheadDstX: 4
   LookSmoothTimeX: 0.5
@@ -4347,8 +4347,8 @@ MonoBehaviour:
   wallJumpOff: {x: 15, y: 10}
   wallLeap: {x: 18, y: 17}
   maxJumpHeight: 12
-  minJumpHeight: 4
-  timeToJumpApex: 0.4
+  minJumpHeight: 1
+  timeToJumpApex: 1
   moveSpeed: 6
   wallSlideSpeedMax: 3
   wallStickTime: 0.25
