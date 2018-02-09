@@ -6,5 +6,5 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Test.unity
-    guid: 8cc669e24cfe2674b89c3ba873ef643c
+    path: Assets/Hypercube/demo/DEMO_hypercube.unity
+    guid: 17368aac6f62c1a4391cda678ef13627
