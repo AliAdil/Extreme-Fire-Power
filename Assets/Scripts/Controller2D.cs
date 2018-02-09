@@ -227,6 +227,8 @@ public class Controller2D : RaycastController
         
         RaycastHit2D maxSlopeHitRight =
           Physics2D.Raycast(raycastOrigins.bottomRight, Vector2.down, Mathf.Abs(moveAmount.y) + skinWidth, collisionMask);
+        SlideDownMaxSlope(maxSlopeHitLeft, ref moveAmount);
+        SlideDownMaxSlope(maxSlopeHitRight, ref moveAmount);
 
         
         
@@ -265,7 +267,9 @@ public class Controller2D : RaycastController
             // if the slop angle exeeds the max slop angle 
             if (slopeAngle > maxSlopeAngle)
             { // some trignometry 
-                moveAmount.x = (Mathf.Abs(moveAmount.y) - hit.distance) / Mathf.Tan(slopeAngle * Mathf.Deg2Rad);
+                moveAmount.x = hit.normal.x * (Mathf.Abs(moveAmount.y) - hit.distance) / Mathf.Tan(slopeAngle * Mathf.Deg2Rad);
+                collisions.slopeAngle = slopeAngle;
+                collisions.slidingDownMaxSlope = true;
             }
         }
     }
@@ -282,6 +286,8 @@ public class Controller2D : RaycastController
 
         public bool climbingSlope;
         public bool descendingSlope;
+        public bool slidingDownMaxSlope;
+
         public float slopeAngle, slopeAngleOld;
         public Vector2 moveAmountOld;
         // 1 would mean character facing right -1 mean it is facing left  
@@ -294,6 +300,8 @@ public class Controller2D : RaycastController
             left = right = false;
             climbingSlope = false;
             descendingSlope = false;
+            slidingDownMaxSlope = false;
+
             slopeAngleOld = slopeAngle;
             slopeAngle = 0;
         }
