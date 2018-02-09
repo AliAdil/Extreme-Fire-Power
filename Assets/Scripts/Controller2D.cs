@@ -222,6 +222,14 @@ public class Controller2D : RaycastController
 
     void DescendSlope(ref Vector2 moveAmount)
     {
+        RaycastHit2D maxSlopeHitLeft = 
+           Physics2D.Raycast(raycastOrigins.bottomLeft,Vector2.down, Mathf.Abs(moveAmount.y)+ skinWidth, collisionMask);
+        
+        RaycastHit2D maxSlopeHitRight =
+          Physics2D.Raycast(raycastOrigins.bottomRight, Vector2.down, Mathf.Abs(moveAmount.y) + skinWidth, collisionMask);
+
+        
+        
         float directionX = Mathf.Sign(moveAmount.x);
         Vector2 rayOrigin = (directionX == -1) ? raycastOrigins.bottomRight : raycastOrigins.bottomRight;
         RaycastHit2D hit = Physics2D.Raycast(rayOrigin, -Vector2.up, Mathf.Infinity, collisionMask);
@@ -245,6 +253,19 @@ public class Controller2D : RaycastController
 
                     }
                 }
+            }
+        }
+    }
+
+    void SlideDownMaxSlope( RaycastHit2D hit , ref Vector2 moveAmount)
+    {
+        if (hit)
+        {
+            float slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
+            // if the slop angle exeeds the max slop angle 
+            if (slopeAngle > maxSlopeAngle)
+            { // some trignometry 
+                moveAmount.x = (Mathf.Abs(moveAmount.y) - hit.distance) / Mathf.Tan(slopeAngle * Mathf.Deg2Rad);
             }
         }
     }
