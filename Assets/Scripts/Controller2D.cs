@@ -37,15 +37,17 @@ public class Controller2D : RaycastController
         // player input for pass thorugh platform
         playerInput = input;
 
-        // face direction
-        if (moveAmount.x != 0)
-        {
-            collisions.faceDir = (int)Mathf.Sign(moveAmount.x);
-        }
+     
         // descending slope
         if (moveAmount.y < 0)
         {
             DescendSlope(ref moveAmount);
+        }
+
+        // face direction
+        if (moveAmount.x != 0)
+        {
+            collisions.faceDir = (int)Mathf.Sign(moveAmount.x);
         }
 
         // ascending slope
