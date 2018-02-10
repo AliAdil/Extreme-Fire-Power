@@ -52,7 +52,10 @@ public class Player : MonoBehaviour
 
         if (controller.collisions.above || controller.collisions.below)
         {
-            moveAmount.y = 0;
+            if (!controller.collisions.slidingDownMaxSlope)
+            {
+                moveAmount.y = 0;
+            }
         }
 
 
