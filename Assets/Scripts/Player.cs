@@ -54,6 +54,11 @@ public class Player : MonoBehaviour
         {
             if (!controller.collisions.slidingDownMaxSlope)
             {
+                //moveAmount.y = 0;
+                moveAmount.y += controller.collisions.slopeNormal.y * -gravity * Time.deltaTime;
+            }
+            else
+            {
                 moveAmount.y = 0;
             }
         }
