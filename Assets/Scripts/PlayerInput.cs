@@ -13,15 +13,16 @@ public class PlayerInput : MonoBehaviour {
 	
 	
 	void Update () {
-        Vector2 directionalInput = new Vector2(CrossPlatformInputManager.GetAxisRaw("Horizontal"), CrossPlatformInputManager.GetAxisRaw("Vertical"));
+        //Vector2 directionalInput = new Vector2(CrossPlatformInputManager.GetAxisRaw("Horizontal"), CrossPlatformInputManager.GetAxisRaw("Vertical"));
+        Vector2 directionalInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
        player.SetDirectionalInput(directionalInput);
 
-       if (CrossPlatformInputManager.GetButtonDown("Jump"))
+       if (Input.GetButtonDown("Jump"))
        {
            player.OnJumpInputDown();
        }
 
-       if (CrossPlatformInputManager.GetButtonUp("Jump"))
+       if (Input.GetButtonUp("Jump"))
        {
            player.OnJumpInputUp();
        }

@@ -94,6 +94,7 @@
      <None Include="Assets\LeanTouch\Examples\Shaders\Skybox.shader" />
      <None Include="Assets\LeanTouch\Examples\Shaders\Smooth.shader" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
+     <None Include="Assets\The_Texture_Lab\TL_Prototype_Textures_Pack\Documentation.txt" />
  <Reference Include="Facebook.Unity.Settings">
  <HintPath>F:/Unity Projects/Extreme Fire-Power/Library/FacebookSDK/Facebook.Unity.Settings.dll</HintPath>
  </Reference>
