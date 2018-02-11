@@ -4,128 +4,114 @@ using UnityEngine;
 
 public class CameraFollow2D : MonoBehaviour {
 
-    // to store the target which camera will be following 
+
     public Controller2D target;
     public float verticalOffset;
     public float lookAheadDstX;
-    public float LookSmoothTimeX;
+    public float lookSmoothTimeX;
     public float verticalSmoothTime;
-    
-    // size which camera will be following 
     public Vector2 focusAreaSize;
-    
+
     FocusArea focusArea;
 
-    float currentLookAhedX;
+    float currentLookAheadX;
     float targetLookAheadX;
-    float lookAheedDirX;
-    float smoothmoveAmountX;
-    float smoothmoveAmountY;
+    float lookAheadDirX;
+    float smoothLookVelocityX;
+    float smoothVelocityY;
 
-    bool lookAheedStopped;
+    bool lookAheadStopped;
 
     void Start()
     {
         focusArea = new FocusArea(target.collider.bounds, focusAreaSize);
-        Debug.Log("Mathf value -10 "+Mathf.Sign(-10));
-        Debug.Log("Mathf value -10 "+Mathf.Sign(10));
     }
 
-    // usually used for camera follow because it means that all the player movement has already been finished for the frame in its
-    // own update method
     void LateUpdate()
     {
         focusArea.Update(target.collider.bounds);
 
         Vector2 focusPosition = focusArea.centre + Vector2.up * verticalOffset;
 
-        transform.position = (Vector3)focusPosition + Vector3.forward * -10;
-
-        if (focusArea.moveAmount.x != 0)
+        if (focusArea.velocity.x != 0)
         {
-            lookAheedDirX = Mathf.Sign(focusArea.moveAmount.x);
-            if (Mathf.Sign(target.playerInput.x) == Mathf.Sign(focusArea.moveAmount.x) && target.playerInput.x != 0)
+            lookAheadDirX = Mathf.Sign(focusArea.velocity.x);
+            if (Mathf.Sign(target.playerInput.x) == Mathf.Sign(focusArea.velocity.x) && target.playerInput.x != 0)
             {
-                lookAheedStopped = false;
-                targetLookAheadX = lookAheedDirX * lookAheadDstX;
+                lookAheadStopped = false;
+                targetLookAheadX = lookAheadDirX * lookAheadDstX;
             }
             else
             {
-                if (!lookAheedStopped)
+                if (!lookAheadStopped)
                 {
-                    lookAheedStopped = true;
-                    targetLookAheadX = currentLookAhedX + (lookAheedDirX * lookAheadDstX - currentLookAhedX) / 4f;
+                    lookAheadStopped = true;
+                    targetLookAheadX = currentLookAheadX + (lookAheadDirX * lookAheadDstX - currentLookAheadX) / 4f;
                 }
             }
         }
-       // targetLookAheadX = lookAheedDirX * lookAheadDstX;
-        currentLookAhedX = Mathf.SmoothDamp(currentLookAhedX, targetLookAheadX, ref smoothmoveAmountX, LookSmoothTimeX);
-        focusPosition.y = Mathf.SmoothDamp(transform.position.y, focusPosition.y, ref smoothmoveAmountY, verticalSmoothTime);
-        focusPosition += Vector2.right * currentLookAhedX;
+
+
+        currentLookAheadX = Mathf.SmoothDamp(currentLookAheadX, targetLookAheadX, ref smoothLookVelocityX, lookSmoothTimeX);
+
+        focusPosition.y = Mathf.SmoothDamp(transform.position.y, focusPosition.y, ref smoothVelocityY, verticalSmoothTime);
+        focusPosition += Vector2.right * currentLookAheadX;
         transform.position = (Vector3)focusPosition + Vector3.forward * -10;
     }
 
     void OnDrawGizmos()
     {
-        Gizmos.color = new Color(1, 0, 0, 0.5f);
+        Gizmos.color = new Color(1, 0, 0, .5f);
         Gizmos.DrawCube(focusArea.centre, focusAreaSize);
     }
 
     struct FocusArea
     {
         public Vector2 centre;
-        public Vector2 moveAmount;
+        public Vector2 velocity;
         float left, right;
         float top, bottom;
 
-        // constructor
+
         public FocusArea(Bounds targetBounds, Vector2 size)
         {
             left = targetBounds.center.x - size.x / 2;
             right = targetBounds.center.x + size.x / 2;
             bottom = targetBounds.min.y;
             top = targetBounds.min.y + size.y;
-            moveAmount = Vector2.zero;
 
-            // getting mid point add and then dividing them 
+            velocity = Vector2.zero;
             centre = new Vector2((left + right) / 2, (top + bottom) / 2);
         }
 
         public void Update(Bounds targetBounds)
         {
-            // for x axis 
-            float shiftX = 0; 
-                if (targetBounds.min.x < left)
-                {
-                    shiftX = targetBounds.min.x - left;
-                }
-                else if (targetBounds.max.x > right)
-                {
-                    shiftX = targetBounds.max.x - right;
-                }
-
+            float shiftX = 0;
+            if (targetBounds.min.x < left)
+            {
+                shiftX = targetBounds.min.x - left;
+            }
+            else if (targetBounds.max.x > right)
+            {
+                shiftX = targetBounds.max.x - right;
+            }
             left += shiftX;
             right += shiftX;
 
-            // for y axis 
             float shiftY = 0;
-                if (targetBounds.min.y < bottom)
-                {
-                    shiftY = targetBounds.min.y - bottom;
-                }
-                else if (targetBounds.max.y > top)
-                {
-                    shiftY = targetBounds.max.y - top;
-                }
-
+            if (targetBounds.min.y < bottom)
+            {
+                shiftY = targetBounds.min.y - bottom;
+            }
+            else if (targetBounds.max.y > top)
+            {
+                shiftY = targetBounds.max.y - top;
+            }
             top += shiftY;
             bottom += shiftY;
             centre = new Vector2((left + right) / 2, (top + bottom) / 2);
-            
-            // value of how far focus area is moved in last frame 
-            moveAmount = new Vector2(shiftX, shiftY); 
+            velocity = new Vector2(shiftX, shiftY);
         }
     }
-
 
 }
